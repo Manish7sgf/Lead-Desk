@@ -13,8 +13,10 @@ class LeadCreate(BaseModel):
     budget_range: str = Field(..., min_length=1, max_length=50, description="Budget range selection")
     message: str = Field(..., min_length=5, max_length=2000, description="Lead project message")
 
-class LeadStatusUpdate(BaseModel):
-    status: Literal["New", "Contacted", "Closed"] = Field(..., description="Lead status")
+class LeadUpdate(BaseModel):
+    status: Optional[Literal["New", "Contacted", "Closed"]] = None
+    notes: Optional[str] = None
+    is_starred: Optional[bool] = None
 
 class LeadResponse(BaseModel):
     id: str
@@ -23,6 +25,9 @@ class LeadResponse(BaseModel):
     budget_range: str
     message: str
     status: str
+    notes: Optional[str] = ""
+    is_starred: bool = False
+    priority: str = "Standard"
     created_at: str
 
 class LoginRequest(BaseModel):

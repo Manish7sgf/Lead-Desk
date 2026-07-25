@@ -1,23 +1,38 @@
+import csv
+import io
 from datetime import datetime, timezone
 import uuid
 from typing import List, Optional
 from bson import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi.responses import StreamingResponse
 
-from app.models import LeadCreate, LeadResponse, LeadStatusUpdate
+from app.models import LeadCreate, LeadResponse, LeadUpdate
 from app.auth import get_current_admin
 from app.database import get_database
 
 router = APIRouter(prefix="/api/leads", tags=["Leads"])
 
+def calculate_priority(budget_str: str) -> str:
+    b_lower = budget_str.lower()
+    if "20k+" in b_lower or "16 lakh+" in b_lower or "16l+" in b_lower:
+        return "High"
+    if "5k-20k" in b_lower or "4 lakh" in b_lower or "4l" in b_lower:
+        return "Medium"
+    return "Standard"
+
 def format_lead(lead_dict: dict) -> dict:
+    budget = lead_dict.get("budget_range", "")
     return {
         "id": str(lead_dict.get("_id") or lead_dict.get("id")),
         "name": lead_dict["name"],
         "email": lead_dict["email"],
-        "budget_range": lead_dict["budget_range"],
+        "budget_range": budget,
         "message": lead_dict["message"],
         "status": lead_dict.get("status", "New"),
+        "notes": lead_dict.get("notes", ""),
+        "is_starred": lead_dict.get("is_starred", False),
+        "priority": calculate_priority(budget),
         "created_at": lead_dict.get("created_at", datetime.now(timezone.utc).isoformat())
     }
 
@@ -33,6 +48,8 @@ async def create_lead(lead: LeadCreate):
         "budget_range": lead.budget_range,
         "message": lead.message.strip(),
         "status": "New",
+        "notes": "",
+        "is_starred": False,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     
@@ -43,7 +60,6 @@ async def create_lead(lead: LeadCreate):
             new_lead_doc["_id"] = result.inserted_id
             return format_lead(new_lead_doc)
         except Exception as e:
-            # Fallback if DB write fails temporarily
             pass
 
     # In-memory fallback mode
@@ -90,34 +106,81 @@ async def list_leads(
             l for l in all_leads
             if query_lower in l["name"].lower() or query_lower in l["email"].lower()
         ]
-    # Sort newest first
     all_leads.sort(key=lambda x: x.get("created_at", ""), reverse=True)
     return [format_lead(l) for l in all_leads]
 
-@router.patch("/{lead_id}", response_model=LeadResponse)
-async def update_lead_status(
-    lead_id: str,
-    status_update: LeadStatusUpdate,
-    current_admin: str = Depends(get_current_admin)
-):
+@router.get("/export", response_class=StreamingResponse)
+async def export_leads_csv(current_admin: str = Depends(get_current_admin)):
     """
-    Protected admin endpoint: Update status of a specific lead (New / Contacted / Closed).
+    Protected admin endpoint: Export all leads as downloadable CSV file.
     """
     db_obj = get_database()
-    new_status = status_update.status
+    leads = []
 
     if db_obj.is_connected:
         try:
-            # Try ObjectId first
-            filter_query = {}
-            if ObjectId.is_valid(lead_id):
-                filter_query = {"_id": ObjectId(lead_id)}
-            else:
-                filter_query = {"_id": lead_id}
+            cursor = db_obj.db.leads.find().sort("created_at", -1)
+            async for doc in cursor:
+                leads.append(format_lead(doc))
+        except Exception:
+            pass
 
+    if not leads:
+        leads = [format_lead(l) for l in db_obj.in_memory_leads]
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["ID", "Date", "Name", "Email", "Budget Range", "Priority", "Status", "Message", "Admin Notes"])
+
+    for lead in leads:
+        writer.writerow([
+            lead["id"],
+            lead["created_at"],
+            lead["name"],
+            lead["email"],
+            lead["budget_range"],
+            lead["priority"],
+            lead["status"],
+            lead["message"],
+            lead.get("notes", "")
+        ])
+
+    output.seek(0)
+    filename = f"leaddesk_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    return StreamingResponse(
+        io.BytesIO(output.getvalue().encode('utf-8')),
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
+
+@router.patch("/{lead_id}", response_model=LeadResponse)
+async def update_lead(
+    lead_id: str,
+    lead_update: LeadUpdate,
+    current_admin: str = Depends(get_current_admin)
+):
+    """
+    Protected admin endpoint: Update status, admin notes, or starred state of a lead.
+    """
+    db_obj = get_database()
+    update_data = {}
+    
+    if lead_update.status is not None:
+        update_data["status"] = lead_update.status
+    if lead_update.notes is not None:
+        update_data["notes"] = lead_update.notes
+    if lead_update.is_starred is not None:
+        update_data["is_starred"] = lead_update.is_starred
+
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No fields provided for update")
+
+    if db_obj.is_connected:
+        try:
+            filter_query = {"_id": ObjectId(lead_id)} if ObjectId.is_valid(lead_id) else {"_id": lead_id}
             updated = await db_obj.db.leads.find_one_and_update(
                 filter_query,
-                {"$set": {"status": new_status}},
+                {"$set": update_data},
                 return_document=True
             )
             if updated:
@@ -128,7 +191,7 @@ async def update_lead_status(
     # In-memory fallback
     for lead in db_obj.in_memory_leads:
         if str(lead.get("_id") or lead.get("id")) == lead_id:
-            lead["status"] = new_status
+            lead.update(update_data)
             return format_lead(lead)
 
     raise HTTPException(
