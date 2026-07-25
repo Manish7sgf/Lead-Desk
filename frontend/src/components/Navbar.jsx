@@ -50,7 +50,6 @@ const Navbar = () => {
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>Admin Triage</span>
               </Link>
               
