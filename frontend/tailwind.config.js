@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,6 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        zinc: {
+          925: '#111114',
+          950: '#09090b',
+        },
         brand: {
           50: '#f0f7ff',
           100: '#e0effe',
@@ -14,10 +19,6 @@ export default {
           600: '#0369a1',
           700: '#075985',
           900: '#0c4a6e',
-        },
-        slate: {
-          850: '#1e293b',
-          950: '#0b0f19',
         }
       },
       fontFamily: {

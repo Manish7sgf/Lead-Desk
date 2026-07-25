@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -14,9 +15,9 @@ const ProtectedRoute = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="flex-1 flex items-center justify-center py-24 text-slate-400 text-sm">
+      <div className="flex-1 flex items-center justify-center py-24 text-slate-400 dark:text-zinc-400 text-sm">
         <div className="flex items-center gap-3">
-          <svg className="animate-spin h-5 w-5 text-sky-400" viewBox="0 0 24 24">
+          <svg className="animate-spin h-5 w-5 text-indigo-500" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
@@ -35,7 +36,7 @@ const ProtectedRoute = ({ children }) => {
 
 function AppContent() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#09090b] text-zinc-100 font-sans antialiased">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-zinc-100 font-sans antialiased transition-colors duration-200">
       <Navbar />
       <main className="flex-1 flex flex-col">
         <Routes>
@@ -59,11 +60,13 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

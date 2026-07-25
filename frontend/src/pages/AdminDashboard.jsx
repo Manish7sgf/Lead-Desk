@@ -215,45 +215,45 @@ const AdminDashboard = () => {
   const renderStatusDot = (statusStr) => {
     switch (statusStr) {
       case 'New':
-        return <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0"></span>;
+        return <span className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>;
       case 'Contacted':
-        return <span className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0"></span>;
+        return <span className="w-1.5 h-1.5 rounded-full bg-sky-500 flex-shrink-0"></span>;
       case 'Closed':
-        return <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0"></span>;
+        return <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>;
       default:
-        return <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 flex-shrink-0"></span>;
+        return <span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-zinc-500 flex-shrink-0"></span>;
     }
   };
 
   const renderPriorityBadge = (priorityStr) => {
     if (priorityStr === 'High') {
       return (
-        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-red-950/60 border border-red-800/60 text-red-400">
+        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-red-100 border border-red-200 text-red-700 dark:bg-red-950/60 dark:border-red-800/60 dark:text-red-400">
           High
         </span>
       );
     }
     if (priorityStr === 'Medium') {
       return (
-        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-950/60 border border-amber-800/60 text-amber-400">
+        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-100 border border-amber-200 text-amber-700 dark:bg-amber-950/60 dark:border-amber-800/60 dark:text-amber-400">
           Med
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono text-zinc-500 bg-zinc-900 border border-zinc-800">
+      <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono text-slate-600 dark:text-zinc-500 bg-slate-100 border border-slate-200 dark:bg-zinc-900 dark:border-zinc-800">
         Std
       </span>
     );
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 transition-colors">
       {/* Header title & CSV Export */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-100 tracking-tight">Lead Triage Queue</h1>
-          <p className="text-zinc-400 text-xs mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-slate-900 dark:text-zinc-100 tracking-tight">Lead Triage Queue</h1>
+          <p className="text-slate-500 dark:text-zinc-400 text-xs mt-1">
             Real-time lead processing, admin notes, priority flagging, and CSV exports
           </p>
         </div>
@@ -262,19 +262,19 @@ const AdminDashboard = () => {
           <button
             onClick={handleExportCSV}
             disabled={exporting || totalCount === 0}
-            className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm disabled:opacity-50"
+            className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:border-zinc-700 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm disabled:opacity-50"
             title="Download CSV export of all leads"
           >
-            <Download className="w-3.5 h-3.5 text-indigo-400" />
+            <Download className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
             <span>{exporting ? 'Exporting...' : 'Export CSV'}</span>
           </button>
 
           <button
             onClick={fetchLeads}
             disabled={loading}
-            className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm"
+            className="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:hover:border-zinc-700 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-zinc-400' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-slate-400 dark:text-zinc-400' : ''}`} />
             <span>Refresh</span>
           </button>
         </div>
@@ -282,27 +282,27 @@ const AdminDashboard = () => {
 
       {/* Bulk action bar if selection active */}
       {selectedIds.length > 0 && (
-        <div className="mb-4 p-2.5 rounded-xl bg-zinc-900 border border-zinc-700/80 flex items-center justify-between animate-fadeIn text-xs">
-          <span className="font-mono text-zinc-300">
-            Selected <strong className="text-white">{selectedIds.length}</strong> lead(s)
+        <div className="mb-4 p-2.5 rounded-xl bg-slate-100 border border-slate-200 dark:bg-zinc-900 dark:border-zinc-700/80 flex items-center justify-between animate-fadeIn text-xs">
+          <span className="font-mono text-slate-700 dark:text-zinc-300">
+            Selected <strong className="text-slate-900 dark:text-white">{selectedIds.length}</strong> lead(s)
           </span>
           <div className="flex items-center gap-2">
-            <span className="text-zinc-400">Bulk Mark As:</span>
+            <span className="text-slate-500 dark:text-zinc-400">Bulk Mark As:</span>
             <button
               onClick={() => handleBulkStatusChange('Contacted')}
-              className="px-2.5 py-1 rounded-lg bg-sky-950 border border-sky-800 text-sky-300 font-medium hover:bg-sky-900 transition-colors"
+              className="px-2.5 py-1 rounded-lg bg-sky-100 border border-sky-300 text-sky-800 dark:bg-sky-950 dark:border-sky-800 dark:text-sky-300 font-medium hover:bg-sky-200 transition-colors"
             >
               Contacted
             </button>
             <button
               onClick={() => handleBulkStatusChange('Closed')}
-              className="px-2.5 py-1 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-300 font-medium hover:bg-emerald-900 transition-colors"
+              className="px-2.5 py-1 rounded-lg bg-emerald-100 border border-emerald-300 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-300 font-medium hover:bg-emerald-200 transition-colors"
             >
               Closed
             </button>
             <button
               onClick={() => setSelectedIds([])}
-              className="px-2 py-1 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+              className="px-2 py-1 rounded-lg bg-slate-200 text-slate-700 hover:text-slate-900 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:text-white transition-colors"
             >
               Deselect
             </button>
@@ -311,19 +311,19 @@ const AdminDashboard = () => {
       )}
 
       {/* Control Bar: Integrated Filter Tabs + Search */}
-      <div className="bg-[#121215] border border-zinc-800/80 rounded-2xl p-2.5 mb-6 flex flex-col md:flex-row items-center justify-between gap-3 shadow-md">
+      <div className="bg-white border border-slate-200 dark:bg-[#121215] dark:border-zinc-800/80 rounded-2xl p-2.5 mb-6 flex flex-col md:flex-row items-center justify-between gap-3 shadow-sm transition-colors">
         {/* Status Filter Segment Tabs */}
-        <div className="flex items-center gap-1 overflow-x-auto w-full md:w-auto p-1 bg-[#09090b] border border-zinc-800/60 rounded-xl">
+        <div className="flex items-center gap-1 overflow-x-auto w-full md:w-auto p-1 bg-slate-100 dark:bg-[#09090b] border border-slate-200 dark:border-zinc-800/60 rounded-xl">
           <button
             onClick={() => setStatusFilter('All')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
               statusFilter === 'All'
-                ? 'bg-zinc-800 text-zinc-100 shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-white text-slate-900 dark:bg-zinc-800 dark:text-zinc-100 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
             }`}
           >
             <span>All</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 border border-zinc-700/50">
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 border border-slate-300 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-700/50">
               {totalCount}
             </span>
           </button>
@@ -332,13 +332,13 @@ const AdminDashboard = () => {
             onClick={() => setStatusFilter('Starred')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
               statusFilter === 'Starred'
-                ? 'bg-zinc-800 text-amber-300 shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-white text-amber-700 dark:bg-zinc-800 dark:text-amber-300 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
             }`}
           >
-            <Star className="w-3 h-3 text-amber-400 fill-amber-400/30" />
+            <Star className="w-3 h-3 text-amber-500 fill-amber-500/30" />
             <span>Starred</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-amber-400/80 border border-zinc-700/50">
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-200 text-amber-700 border border-slate-300 dark:bg-zinc-900 dark:text-amber-400/80 dark:border-zinc-700/50">
               {starredCount}
             </span>
           </button>
@@ -347,13 +347,13 @@ const AdminDashboard = () => {
             onClick={() => setStatusFilter('New')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
               statusFilter === 'New'
-                ? 'bg-zinc-800 text-zinc-100 shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-white text-slate-900 dark:bg-zinc-800 dark:text-zinc-100 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
             <span>New</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 border border-zinc-700/50">
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 border border-slate-300 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-700/50">
               {newCount}
             </span>
           </button>
@@ -362,13 +362,13 @@ const AdminDashboard = () => {
             onClick={() => setStatusFilter('Contacted')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
               statusFilter === 'Contacted'
-                ? 'bg-zinc-800 text-zinc-100 shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-white text-slate-900 dark:bg-zinc-800 dark:text-zinc-100 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
             <span>Contacted</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 border border-zinc-700/50">
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 border border-slate-300 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-700/50">
               {contactedCount}
             </span>
           </button>
@@ -377,13 +377,13 @@ const AdminDashboard = () => {
             onClick={() => setStatusFilter('Closed')}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap ${
               statusFilter === 'Closed'
-                ? 'bg-zinc-800 text-zinc-100 shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-white text-slate-900 dark:bg-zinc-800 dark:text-zinc-100 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-zinc-200'
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             <span>Closed</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 border border-zinc-700/50">
+            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 border border-slate-300 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-700/50">
               {closedCount}
             </span>
           </button>
@@ -391,7 +391,7 @@ const AdminDashboard = () => {
 
         {/* Search input with keyboard shortcut indicator */}
         <div className="relative w-full md:w-72">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 dark:text-zinc-500">
             <Search className="w-3.5 h-3.5" />
           </div>
           <input
@@ -400,36 +400,36 @@ const AdminDashboard = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search name or email... (/)"
-            className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-[#09090b] border border-zinc-800/80 text-zinc-100 placeholder-zinc-500 text-xs focus:outline-none focus:border-zinc-600 transition-all"
+            className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 dark:bg-[#09090b] dark:border-zinc-800/80 dark:text-zinc-100 dark:placeholder-zinc-500 text-xs focus:outline-none focus:border-indigo-500 dark:focus:border-zinc-600 transition-all"
           />
-          <kbd className="absolute right-2 top-2 text-[9px] font-mono text-zinc-500 bg-zinc-900 border border-zinc-800 px-1 py-0.2 rounded">
+          <kbd className="absolute right-2 top-2 text-[9px] font-mono text-slate-500 bg-slate-200 border border-slate-300 dark:text-zinc-500 dark:bg-zinc-900 dark:border-zinc-800 px-1 py-0.2 rounded">
             /
           </kbd>
         </div>
       </div>
 
       {/* Main Table View */}
-      <div className="bg-[#121215] border border-zinc-800/80 rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-white border border-slate-200 dark:bg-[#121215] dark:border-zinc-800/80 rounded-2xl overflow-hidden shadow-xl transition-colors">
         {error && (
-          <div className="p-3 bg-red-950/30 border-b border-red-800/40 text-red-300 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-400" />
+          <div className="p-3 bg-red-50 border-b border-red-200 text-red-700 dark:bg-red-950/30 dark:border-red-800/40 dark:text-red-300 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 text-red-500" />
             <span>{error}</span>
           </div>
         )}
 
         {loading && leads.length === 0 ? (
-          <div className="py-16 text-center text-zinc-500 text-xs flex flex-col items-center justify-center gap-2">
-            <RefreshCw className="w-5 h-5 animate-spin text-zinc-400" />
+          <div className="py-16 text-center text-slate-500 dark:text-zinc-500 text-xs flex flex-col items-center justify-center gap-2">
+            <RefreshCw className="w-5 h-5 animate-spin text-slate-400 dark:text-zinc-400" />
             <span>Loading lead queue...</span>
           </div>
         ) : filteredLeads.length === 0 ? (
-          <div className="py-16 text-center text-zinc-400 text-xs flex flex-col items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-500 border border-zinc-800">
+          <div className="py-16 text-center text-slate-500 dark:text-zinc-400 text-xs flex flex-col items-center justify-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-zinc-900 flex items-center justify-center text-slate-400 dark:text-zinc-500 border border-slate-200 dark:border-zinc-800">
               <Inbox className="w-5 h-5" />
             </div>
             <div>
-              <p className="font-medium text-zinc-300">No leads found</p>
-              <p className="text-[11px] text-zinc-500 mt-0.5">
+              <p className="font-medium text-slate-800 dark:text-zinc-300">No leads found</p>
+              <p className="text-[11px] text-slate-500 dark:text-zinc-500 mt-0.5">
                 {searchQuery || statusFilter !== 'All'
                   ? 'No entries match your filter criteria'
                   : 'Submit a new lead on the public landing page to test intake'}
@@ -440,13 +440,13 @@ const AdminDashboard = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-zinc-800/80 bg-[#09090b]/60 text-zinc-400 text-[11px] font-mono font-medium uppercase tracking-wider">
+                <tr className="border-b border-slate-200 dark:border-zinc-800/80 bg-slate-50 dark:bg-[#09090b]/60 text-slate-500 dark:text-zinc-400 text-[11px] font-mono font-medium uppercase tracking-wider">
                   <th className="py-3 px-3 w-8 text-center">
                     <input
                       type="checkbox"
                       checked={selectedIds.length === filteredLeads.length && filteredLeads.length > 0}
                       onChange={toggleSelectAll}
-                      className="rounded border-zinc-800 bg-[#09090b] accent-indigo-500 cursor-pointer"
+                      className="rounded border-slate-300 bg-slate-100 dark:border-zinc-800 dark:bg-[#09090b] accent-indigo-600 cursor-pointer"
                     />
                   </th>
                   <th className="py-3 px-3 w-8"></th>
@@ -457,12 +457,12 @@ const AdminDashboard = () => {
                   <th className="py-3 px-4 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/50 text-xs text-zinc-300">
+              <tbody className="divide-y divide-slate-200 dark:divide-zinc-800/50 text-xs text-slate-700 dark:text-zinc-300">
                 {filteredLeads.map((lead) => (
                   <tr
                     key={lead.id}
                     onClick={() => setActiveLead(lead)}
-                    className="hover:bg-zinc-800/40 cursor-pointer transition-colors group"
+                    className="hover:bg-slate-50 dark:hover:bg-zinc-800/40 cursor-pointer transition-colors group"
                   >
                     {/* Checkbox */}
                     <td className="py-3.5 px-3 text-center" onClick={(e) => e.stopPropagation()}>
@@ -470,26 +470,26 @@ const AdminDashboard = () => {
                         type="checkbox"
                         checked={selectedIds.includes(lead.id)}
                         onChange={(e) => toggleSelectOne(lead.id, e)}
-                        className="rounded border-zinc-800 bg-[#09090b] accent-indigo-500 cursor-pointer"
+                        className="rounded border-slate-300 bg-slate-100 dark:border-zinc-800 dark:bg-[#09090b] accent-indigo-600 cursor-pointer"
                       />
                     </td>
 
                     {/* Star Button */}
                     <td className="py-3.5 px-2 text-center" onClick={(e) => handleToggleStar(lead.id, e)}>
-                      <button className="text-zinc-600 hover:text-amber-400 transition-colors">
-                        <Star className={`w-3.5 h-3.5 ${lead.is_starred ? 'text-amber-400 fill-amber-400' : ''}`} />
+                      <button className="text-slate-300 dark:text-zinc-600 hover:text-amber-500 transition-colors">
+                        <Star className={`w-3.5 h-3.5 ${lead.is_starred ? 'text-amber-500 fill-amber-500' : ''}`} />
                       </button>
                     </td>
 
                     {/* Lead info */}
                     <td className="py-3.5 px-4">
-                      <div className="font-medium text-zinc-100 group-hover:text-white transition-colors flex items-center gap-1.5">
+                      <div className="font-medium text-slate-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-white transition-colors flex items-center gap-1.5">
                         <span>{lead.name}</span>
                         {lead.notes && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" title="Has admin notes"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" title="Has admin notes"></span>
                         )}
                       </div>
-                      <div className="text-[11px] text-zinc-500 font-mono mt-0.5">
+                      <div className="text-[11px] text-slate-500 dark:text-zinc-500 font-mono mt-0.5">
                         {lead.email}
                       </div>
                     </td>
@@ -497,7 +497,7 @@ const AdminDashboard = () => {
                     {/* Budget & Priority */}
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#09090b] border border-zinc-800 font-mono text-[11px] text-zinc-300">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 dark:bg-[#09090b] dark:border-zinc-800 font-mono text-[11px] text-slate-800 dark:text-zinc-300">
                           {lead.budget_range}
                         </span>
                         {renderPriorityBadge(lead.priority)}
@@ -506,13 +506,13 @@ const AdminDashboard = () => {
 
                     {/* Message Preview */}
                     <td className="py-3.5 px-4 max-w-xs">
-                      <p className="text-zinc-400 text-xs line-clamp-1 leading-relaxed">
+                      <p className="text-slate-600 dark:text-zinc-400 text-xs line-clamp-1 leading-relaxed">
                         {lead.message}
                       </p>
                     </td>
 
                     {/* Date */}
-                    <td className="py-3.5 px-4 whitespace-nowrap text-[11px] text-zinc-500 font-mono">
+                    <td className="py-3.5 px-4 whitespace-nowrap text-[11px] text-slate-500 dark:text-zinc-500 font-mono">
                       {new Date(lead.created_at).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric'
@@ -529,10 +529,10 @@ const AdminDashboard = () => {
                           value={lead.status}
                           onChange={(e) => handleStatusChange(lead.id, e.target.value)}
                           disabled={updatingId === lead.id}
-                          className="px-2.5 py-1 rounded-lg bg-[#09090b] border border-zinc-800 text-[11px] font-medium text-zinc-200 focus:outline-none focus:border-zinc-600 transition-all cursor-pointer"
+                          className="px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-300 text-slate-800 dark:bg-[#09090b] dark:border-zinc-800 text-[11px] font-medium dark:text-zinc-200 focus:outline-none focus:border-indigo-500 dark:focus:border-zinc-600 transition-all cursor-pointer"
                         >
                           {STATUS_OPTIONS.map((st) => (
-                            <option key={st} value={st} className="bg-zinc-900 text-zinc-100">
+                            <option key={st} value={st} className="bg-white text-slate-900 dark:bg-zinc-900 dark:text-zinc-100">
                               {st}
                             </option>
                           ))}
@@ -550,22 +550,22 @@ const AdminDashboard = () => {
       {/* Side Slide-Over Drawer for Lead Details & Admin Notes */}
       {activeLead && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-          <div className="w-full max-w-md bg-[#121215] border-l border-zinc-800/80 h-full p-6 flex flex-col justify-between shadow-2xl animate-fadeIn overflow-y-auto">
+          <div className="w-full max-w-md bg-white border-l border-slate-200 dark:bg-[#121215] dark:border-zinc-800/80 h-full p-6 flex flex-col justify-between shadow-2xl animate-fadeIn overflow-y-auto transition-colors">
             <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-zinc-800/80 pb-4">
                 <div className="flex items-center gap-2">
                   <button onClick={(e) => handleToggleStar(activeLead.id, e)}>
-                    <Star className={`w-4 h-4 ${activeLead.is_starred ? 'text-amber-400 fill-amber-400' : 'text-zinc-500'}`} />
+                    <Star className={`w-4 h-4 ${activeLead.is_starred ? 'text-amber-500 fill-amber-500' : 'text-slate-400 dark:text-zinc-500'}`} />
                   </button>
                   {renderStatusDot(activeLead.status)}
-                  <span className="text-xs font-semibold text-zinc-200 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 uppercase tracking-wider">
                     {activeLead.status} Lead
                   </span>
                   {renderPriorityBadge(activeLead.priority)}
                 </div>
                 <button
                   onClick={() => setActiveLead(null)}
-                  className="p-1 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                  className="p-1 rounded-lg text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -574,35 +574,35 @@ const AdminDashboard = () => {
               {/* Lead metadata */}
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-zinc-100">{activeLead.name}</h3>
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-zinc-100">{activeLead.name}</h3>
                   <a
                     href={`mailto:${activeLead.email}`}
-                    className="text-xs text-zinc-400 font-mono hover:text-zinc-200 inline-flex items-center gap-1 transition-colors mt-0.5"
+                    className="text-xs text-slate-500 dark:text-zinc-400 font-mono hover:text-indigo-600 dark:hover:text-zinc-200 inline-flex items-center gap-1 transition-colors mt-0.5"
                   >
                     <span>{activeLead.email}</span>
-                    <ExternalLink className="w-3 h-3 text-zinc-500" />
+                    <ExternalLink className="w-3 h-3 text-slate-400 dark:text-zinc-500" />
                   </a>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
-                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Budget Bracket</span>
-                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block">{activeLead.budget_range}</span>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 dark:bg-[#09090b] dark:border-zinc-800/80">
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-mono uppercase block">Budget Bracket</span>
+                    <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 font-mono mt-0.5 block">{activeLead.budget_range}</span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
-                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Target Timeline</span>
-                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block">{activeLead.timeline || "Flexible"}</span>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 dark:bg-[#09090b] dark:border-zinc-800/80">
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-mono uppercase block">Target Timeline</span>
+                    <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 font-mono mt-0.5 block">{activeLead.timeline || "Flexible"}</span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
-                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Project Category</span>
-                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block truncate">{activeLead.project_type || "Full-Stack Web App"}</span>
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 dark:bg-[#09090b] dark:border-zinc-800/80">
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-mono uppercase block">Project Category</span>
+                    <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 font-mono mt-0.5 block truncate">{activeLead.project_type || "Full-Stack Web App"}</span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
-                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Created On</span>
-                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 dark:bg-[#09090b] dark:border-zinc-800/80">
+                    <span className="text-[10px] text-slate-500 dark:text-zinc-500 font-mono uppercase block">Created On</span>
+                    <span className="text-xs font-semibold text-slate-800 dark:text-zinc-200 font-mono mt-0.5 block">
                       {new Date(activeLead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </span>
                   </div>
@@ -610,7 +610,7 @@ const AdminDashboard = () => {
 
                 {/* Status Switcher */}
                 <div>
-                  <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono text-slate-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
                     Update Status
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -620,8 +620,8 @@ const AdminDashboard = () => {
                         onClick={() => handleStatusChange(activeLead.id, st)}
                         className={`py-1.5 px-2 rounded-xl text-xs font-medium border transition-all ${
                           activeLead.status === st
-                            ? 'bg-zinc-800 border-zinc-600 text-zinc-100 shadow-sm'
-                            : 'bg-[#09090b] border-zinc-800 text-zinc-400 hover:text-zinc-200'
+                            ? 'bg-slate-900 text-white dark:bg-zinc-800 dark:border-zinc-600 dark:text-zinc-100 shadow-sm'
+                            : 'bg-slate-50 border-slate-200 text-slate-600 dark:bg-[#09090b] dark:border-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                         }`}
                       >
                         {st}
@@ -632,10 +632,10 @@ const AdminDashboard = () => {
 
                 {/* Project Requirements */}
                 <div>
-                  <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono text-slate-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
                     Project Requirements
                   </label>
-                  <div className="p-3.5 rounded-xl bg-[#09090b] border border-zinc-800/80 text-zinc-200 text-xs leading-relaxed whitespace-pre-wrap max-h-48 overflow-y-auto font-sans">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 dark:bg-[#09090b] dark:border-zinc-800/80 dark:text-zinc-200 text-xs leading-relaxed whitespace-pre-wrap max-h-48 overflow-y-auto font-sans">
                     {activeLead.message}
                   </div>
                 </div>
@@ -643,11 +643,11 @@ const AdminDashboard = () => {
                 {/* Internal Admin Notes Editor */}
                 <div className="pt-2">
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+                    <label className="block text-[11px] font-mono text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
                       Internal Admin Notes
                     </label>
                     {notesSuccess && (
-                      <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-mono animate-fadeIn">
+                      <span className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-mono animate-fadeIn">
                         <CheckCircle2 className="w-3 h-3" /> Saved to DB
                       </span>
                     )}
@@ -657,13 +657,13 @@ const AdminDashboard = () => {
                     value={adminNotes}
                     onChange={(e) => setAdminNotes(e.target.value)}
                     placeholder="Add private admin notes (e.g. called client on Friday, sent proposal...)"
-                    className="w-full p-3 rounded-xl bg-[#09090b] border border-zinc-800 text-zinc-200 text-xs placeholder-zinc-600 focus:outline-none focus:border-zinc-500 transition-all resize-none"
+                    className="w-full p-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 dark:bg-[#09090b] dark:border-zinc-800 dark:text-zinc-200 dark:placeholder-zinc-600 text-xs focus:outline-none focus:border-indigo-500 dark:focus:border-zinc-500 transition-all resize-none"
                   ></textarea>
                   <div className="mt-2 flex justify-end">
                     <button
                       onClick={handleSaveNotes}
                       disabled={savingNotes}
-                      className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm disabled:opacity-50"
+                      className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-200 text-xs font-medium inline-flex items-center gap-1.5 transition-all shadow-sm disabled:opacity-50"
                     >
                       <Save className="w-3.5 h-3.5 text-indigo-400" />
                       <span>{savingNotes ? 'Saving...' : 'Save Notes'}</span>
@@ -673,10 +673,10 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-zinc-800/80 mt-6">
+            <div className="pt-4 border-t border-slate-200 dark:border-zinc-800/80 mt-6">
               <button
                 onClick={() => setActiveLead(null)}
-                className="w-full py-2 rounded-xl bg-zinc-800 text-zinc-200 hover:text-white text-xs font-medium transition-colors"
+                className="w-full py-2 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:text-white text-xs font-medium transition-colors"
               >
                 Close Drawer
               </button>
