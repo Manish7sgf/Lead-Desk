@@ -8,7 +8,7 @@ LeadDesk Mini is a full-stack lead capture web application with a public lead in
 
 ## Live Deployment URLs & Test Credentials
 
-- **Frontend App (Vercel)**: `https://leaddesk-mini.vercel.app` (or your deployed Vercel URL)
+- **Frontend App (Vercel)**: `https://lead-desk-ebon.vercel.app`
 - **Backend API (Render)**: `https://leaddesk-mini-backend.onrender.com` (or your deployed Render URL)
 
 ### Test Admin Credentials
