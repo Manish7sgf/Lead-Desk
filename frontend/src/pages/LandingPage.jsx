@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import client from '../api/client';
-import { 
-  CheckCircle2, 
-  AlertCircle, 
-  ArrowRight, 
-  CornerDownLeft, 
-  Sparkles, 
-  ShieldCheck, 
-  Clock, 
-  Zap, 
-  Code2, 
-  Layers, 
-  Check 
+import {
+  CheckCircle2,
+  AlertCircle,
+  ArrowRight,
+  CornerDownLeft,
+  Sparkles,
+  ShieldCheck,
+  Clock,
+  Zap,
+  Code2,
+  Layers,
+  Check
 } from 'lucide-react';
 
 const PROJECT_TYPES = [
@@ -229,10 +229,6 @@ const LandingPage = () => {
             <p className="italic text-zinc-400 leading-relaxed">
               &ldquo;LeadDesk Mini streamlined our entire client onboarding pipeline with direct status triage and real-time updates.&rdquo;
             </p>
-            <div className="flex items-center gap-2 pt-1 border-t border-zinc-800/40">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span className="font-mono text-[11px] text-zinc-300">Digital Heroes Training Task</span>
-            </div>
           </div>
         </div>
 
@@ -305,11 +301,10 @@ const LandingPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Alex Morgan"
-                      className={`w-full px-3.5 py-2 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all ${
-                        errors.name
+                      className={`w-full px-3.5 py-2 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all ${errors.name
                           ? 'border-red-500/80 focus:border-red-500'
                           : 'border-zinc-800 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500'
-                      }`}
+                        }`}
                     />
                     {errors.name && (
                       <p className="text-[11px] text-red-400 font-medium">{errors.name}</p>
@@ -327,11 +322,10 @@ const LandingPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="alex@company.com"
-                      className={`w-full px-3.5 py-2 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all ${
-                        errors.email
+                      className={`w-full px-3.5 py-2 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all ${errors.email
                           ? 'border-red-500/80 focus:border-red-500'
                           : 'border-zinc-800 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500'
-                      }`}
+                        }`}
                     />
                     {errors.email && (
                       <p className="text-[11px] text-red-400 font-medium">{errors.email}</p>
@@ -353,11 +347,10 @@ const LandingPage = () => {
                           key={pt.id}
                           type="button"
                           onClick={() => setFormData((prev) => ({ ...prev, project_type: pt.id }))}
-                          className={`p-2.5 rounded-xl border text-left text-xs font-medium transition-all flex items-center gap-2 ${
-                            isSelected
+                          className={`p-2.5 rounded-xl border text-left text-xs font-medium transition-all flex items-center gap-2 ${isSelected
                               ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm ring-1 ring-zinc-500/40'
                               : 'bg-[#09090b] border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
-                          }`}
+                            }`}
                         >
                           <IconComp className={`w-3.5 h-3.5 ${isSelected ? 'text-indigo-400' : 'text-zinc-500'}`} />
                           <span className="truncate">{pt.label}</span>
@@ -383,11 +376,10 @@ const LandingPage = () => {
                           key={opt.value}
                           type="button"
                           onClick={() => setFormData((prev) => ({ ...prev, budget_range: opt.value }))}
-                          className={`p-2 rounded-xl border text-left transition-all flex flex-col justify-between ${
-                            isSelected
+                          className={`p-2 rounded-xl border text-left transition-all flex flex-col justify-between ${isSelected
                               ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm ring-1 ring-zinc-500/40'
                               : 'bg-[#09090b] border-zinc-800/80 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
-                          }`}
+                            }`}
                         >
                           <span className="text-xs font-semibold">{opt.label}</span>
                           <span className="text-[10px] text-zinc-500 mt-0.5">{opt.desc}</span>
@@ -410,11 +402,10 @@ const LandingPage = () => {
                           key={tl}
                           type="button"
                           onClick={() => setFormData((prev) => ({ ...prev, timeline: tl }))}
-                          className={`py-1.5 px-2 rounded-xl border text-center text-xs font-medium transition-all ${
-                            isSelected
+                          className={`py-1.5 px-2 rounded-xl border text-center text-xs font-medium transition-all ${isSelected
                               ? 'bg-zinc-800 border-zinc-500 text-zinc-100 shadow-sm'
                               : 'bg-[#09090b] border-zinc-800 text-zinc-400 hover:text-zinc-200'
-                          }`}
+                            }`}
                         >
                           {tl}
                         </button>
@@ -440,11 +431,10 @@ const LandingPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Describe your project goals, technical requirements, and key milestones..."
-                    className={`w-full px-3.5 py-2.5 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all resize-none ${
-                      errors.message
+                    className={`w-full px-3.5 py-2.5 rounded-xl bg-[#09090b] border text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm focus:outline-none transition-all resize-none ${errors.message
                         ? 'border-red-500/80 focus:border-red-500'
                         : 'border-zinc-800 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500'
-                    }`}
+                      }`}
                   ></textarea>
                   {errors.message && (
                     <p className="text-[11px] text-red-400 font-medium">{errors.message}</p>
