@@ -591,6 +591,16 @@ const AdminDashboard = () => {
                   </div>
 
                   <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
+                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Target Timeline</span>
+                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block">{activeLead.timeline || "Flexible"}</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
+                    <span className="text-[10px] text-zinc-500 font-mono uppercase block">Project Category</span>
+                    <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block truncate">{activeLead.project_type || "Full-Stack Web App"}</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#09090b] border border-zinc-800/80">
                     <span className="text-[10px] text-zinc-500 font-mono uppercase block">Created On</span>
                     <span className="text-xs font-semibold text-zinc-200 font-mono mt-0.5 block">
                       {new Date(activeLead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}

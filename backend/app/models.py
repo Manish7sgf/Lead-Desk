@@ -12,6 +12,8 @@ class LeadCreate(BaseModel):
     email: EmailStr = Field(..., description="Lead email address")
     budget_range: str = Field(..., min_length=1, max_length=50, description="Budget range selection")
     message: str = Field(..., min_length=5, max_length=2000, description="Lead project message")
+    project_type: Optional[str] = Field("Full-Stack Web App", description="Selected project category")
+    timeline: Optional[str] = Field("Flexible", description="Target launch timeline")
 
 class LeadUpdate(BaseModel):
     status: Optional[Literal["New", "Contacted", "Closed"]] = None
@@ -25,6 +27,8 @@ class LeadResponse(BaseModel):
     budget_range: str
     message: str
     status: str
+    project_type: Optional[str] = "Full-Stack Web App"
+    timeline: Optional[str] = "Flexible"
     notes: Optional[str] = ""
     is_starred: bool = False
     priority: str = "Standard"
